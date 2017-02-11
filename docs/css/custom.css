@@ -1,3 +1,23 @@
+/* Global classes */
+
+div.columns {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: no-wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+div.columns.two-columns > * {
+    flex: 0 1 50%;
+}
+
+ul.nested > li {
+    margin-bottom: 20px;
+}
+
+/* Slide Specific styles */
+
 section.title-slide h1 span {
     text-transform: lowercase;
     color: red;
