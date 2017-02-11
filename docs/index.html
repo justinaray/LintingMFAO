@@ -138,12 +138,118 @@
                 <section>
 					<section>
 						<h1>You need Linters!</h1>
-
-                        <div class="fragment">Collections of best practices</div>
 					</section>
                     <section>
-
+                        <ul>
+                            <li>Keep your baseline consistent</li>
+                            <li class="fragment">js is not compiled!</li>
+                            <li class="fragment">Collections of best practices</li>
+                            <li class="fragment">You don't know it all, use the community</li>
+                        </ul>
 					</section>
+                </section>
+                <section>
+					<section>
+						<h1>Linter History</h1>
+					</section>
+                    <section>
+                        <ul>
+                            <li>jslint</li>
+                            <li class="fragment">jshint</li>
+                            <li class="fragment">jscs</li>
+                            <li class="fragment">eslint</li>
+                        </ul>
+					</section>
+                </section>
+                <section>
+                    <section>
+						<h1>Getting Started</h1>
+					</section>
+                    <section>
+						<div>ESLint site is Awesome!</div>
+					</section>
+                    <section data-background-iframe="http://eslint.org">
+                    </section>
+                    <section>
+                        <pre><code data-trim>
+                            npm install -g eslint
+                            npm init
+                            npm install eslint --save-dev
+
+                            eslint --init
+                            -or-
+                            ./node_modules/.bin/eslint --init
+                        </code></pre>
+                    </section>
+                    <section>
+                        <pre><code data-trim>
+                            [~/code/personal/talks/LintingMFAO/examples]$ ./node_modules/.bin/eslint --init                                                                                        *[master]
+                            ? How would you like to configure ESLint? Answer questions about your style
+                            ? Are you using ECMAScript 6 features? Yes
+                            ? Are you using ES6 modules? Yes
+                            ? Where will your code run? Browser
+                            ? Do you use CommonJS? No
+                            ? Do you use JSX? No
+                            ? What style of indentation do you use? Spaces
+                            ? What quotes do you use for strings? Single
+                            ? What line endings do you use? Unix
+                            ? Do you require semicolons? Yes
+                            ? What format do you want your config file to be in? (Use arrow keys)
+                            ❯ JavaScript
+                              YAML
+                              JSON
+
+                        </code></pre>
+                    </section>
+                    <section>
+                        <pre><code data-trim>
+                            module.exports = {
+                                "env": {
+                                    "browser": true,
+                                    "es6": true
+                                },
+                                "extends": "eslint:recommended",
+                                "parserOptions": {
+                                    "sourceType": "module"
+                                },
+                                "rules": {
+                                    "indent": [
+                                        "error",
+                                        4
+                                    ],
+                                    "linebreak-style": [
+                                        "error",
+                                        "unix"
+                                    ],
+                                    "quotes": [
+                                        "error",
+                                        "single"
+                                    ],
+                                    "semi": [
+                                        "error",
+                                        "always"
+                                    ]
+                                }
+                            };
+                        </code></pre>
+                    </section>
+                    <section>
+                        <span>index.js</span>
+                        <pre><code data-trim>
+                            var foo = bar;
+                        </code></pre>
+                    </section>
+                    <section>
+                        <pre><code data-trim>
+                            [~/code/personal/talks/LintingMFAO/examples]$ eslint index.js                                                                                                          *[master]
+
+                            /Users/jray/code/personal/talks/LintingMFAO/examples/index.js
+                              1:5   error  'foo' is assigned a value but never used  no-unused-vars
+                              1:11  error  'bar' is not defined                      no-undef
+
+                            ✖ 2 problems (2 errors, 0 warnings)
+                        </code></pre>
+                    </section>
                 </section>
 			</div>
 		</div>
