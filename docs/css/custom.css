@@ -1,3 +1,8 @@
+/* Theme/Style Overrides */
+.reveal h1, .reveal h2 {
+    text-transform: none;
+}
+
 /* Global classes */
 
 div.columns {
