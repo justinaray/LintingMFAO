@@ -182,7 +182,7 @@
                         </code></pre>
                     </section>
                     <section>
-                        <pre><code data-trim>
+                        <pre class="stretch"><code data-trim>
                             [~/code/personal/talks/LintingMFAO/examples]$ ./node_modules/.bin/eslint --init                                                                                        *[master]
                             ? How would you like to configure ESLint? Answer questions about your style
                             ? Are you using ECMAScript 6 features? Yes
@@ -202,7 +202,7 @@
                         </code></pre>
                     </section>
                     <section>
-                        <pre><code data-trim>
+                        <pre class="stretch"><code data-trim>
                             module.exports = {
                                 "env": {
                                     "browser": true,
@@ -240,7 +240,7 @@
                         </code></pre>
                     </section>
                     <section>
-                        <pre><code data-trim>
+                        <pre class="stretch"><code data-trim>
                             [~/code/personal/talks/LintingMFAO/examples]$ eslint index.js                                                                                                          *[master]
 
                             /Users/jray/code/personal/talks/LintingMFAO/examples/index.js
@@ -249,6 +249,98 @@
 
                             ✖ 2 problems (2 errors, 0 warnings)
                         </code></pre>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h1>How it works</h1>
+                    </section>
+                    <section>
+                        <p>Code is linted by a set of configurable rules</p>
+                    </section>
+                    <section>
+                        <pre class="stretch"><code data-trim>
+                            module.exports = {
+                                // ...
+                                "rules": {
+                                    "indent": [    // Rule Name
+                                        "error",   // Warning Type: off (0), warn (1), error (2)
+                                        4          // Options
+                                    ],
+                                    "new-cap": ["error", {  // Object Options
+                                        "capIsNew": false
+                                    }],
+                                    "quotes": ["error",
+                                        "single ", {        // Multiple Option Params
+                                        "allowTemplateLiterals": true
+                                    }],
+                                }
+                            };
+                        </code></pre>
+                    </section>
+                    <section>
+                        <ul>
+                            <li>Rules are well documented (eslint.org)</li>
+                            <li>
+                                All rules are similarly configured
+                                <br>
+                                (I'm looking at you jshint!)
+                            </li>
+                        </ul>
+                    </section>
+					<section>
+                        <h2>Rules are defined</h2>
+						<ul>
+							<li>ESLint core</li>
+							<li>Plugins (npm packages)</li>
+							<li>In-repo custom rules</li>
+						</ul>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h1>Configuring ESLint</h1>
+                    </section>
+                    <section>
+                        <h2>Config Files</h2>
+                        <ul style="list-style: none;">
+                            <li>.eslintrc.js</li>
+                            <li>.eslintrc.yaml</li>
+                            <li>.eslintrc.yml</li>
+                            <li>.eslintrc.json</li>
+                            <li>.eslintrc (Deprecated)</li>
+                            <li>package.json</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Config Hierarchy</h2>
+                        <ol>
+                            <li class="fragment">Inline (In-Code) Config</li>
+                            <li class="fragment">Command Line Options</li>
+                            <li class="fragment">Config Files</li>
+                            <li class="fragment">Parent Directories Config
+                                <ul class="fragment"><li>Opt out <pre><code>root: true</code></pre></li></ul>
+                            </li>
+                            <li class="fragment">~/.eslintrc
+                                <ul class="fragment"><li>(If no other config is found)</li></ul>
+                            </li>
+                        </ol>
+                    </section>
+					<section>
+						<p>
+							Hierarchy makes it simple to support
+						</p>
+                        <ul class="nested">
+                            <li class="fragment">Isomorphic Javascript Projects</li>
+                            <li class="fragment">Different styles within a repo
+                                <ul style="list-style: none;">
+                                    <li class="fragment">your-app (Setup)</li>
+                                    <li class="fragment">├─ app (Browser/Strict rules)</li>
+                                    <li class="fragment">├─ server (node environment)</li>
+                                    <li class="fragment">└─ tests (More lenient - globals)</li>
+                                </ul>
+                            </li>
+                        </ul>
                     </section>
                 </section>
 			</div>
