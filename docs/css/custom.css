@@ -18,7 +18,18 @@ ul.nested > li {
 
 /* Slide Specific styles */
 
-section.title-slide h1 span {
+.reveal .slides section.title-slide .title-flare {
+    display: inline-block;
+    width: 0;
+    word-wrap: normal;
+    color: #FFFFFF;
+    transition: opacity 0.5s linear;
+}
+
+.reveal .slides section.title-slide .title-flare.current-fragment,
+.reveal .slides section.title-slide .title-flare.visible {
+    width: auto;
+    word-wrap: break-word;
+    color: #FF0000;
     text-transform: lowercase;
-    color: red;
 }
