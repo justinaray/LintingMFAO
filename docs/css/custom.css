@@ -33,3 +33,8 @@ ul.nested > li {
     color: #FF0000;
     text-transform: lowercase;
 }
+
+
+section#hat-trick-title figure figcaption {
+    font-size: .5em;
+}

@@ -379,6 +379,127 @@
                         </code></pre>
                     </section>
                 </section>
+                <section>
+                    <section id="hat-trick-title">
+                        <h1>Linting Hat Trick</h1>
+                        <figure>
+                            <img src="http://www.gannett-cdn.com/-mm-/283a677b5cfa7796ee2c922210c97549f88dbdd8/c=386-0-4304-2946&r=x404&c=534x401/local/-/media/2017/01/31/USATODAY/USATODAY/636214986703219322-USATSI-9851013.jpg"
+                                width="400px">
+                            <figcaption>(Photo: James Guillory, USA TODAY Sports)</figcaption>
+                        </figure>
+
+                    </section>
+                    <section>
+                        <h2>Same linting results</h2>
+                        <ul>
+                            <li>Command Line</li>
+                            <li>Editor</li>
+                            <li>Build (test and pre-push)</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Command Line Linting (Manual)</h2>
+                        <pre class="stretch"><code data-trim>
+                            [~/code/personal/talks/LintingMFAO/examples]$ eslint index.js                                                                                                          *[master]
+
+                            /Users/jray/code/personal/talks/LintingMFAO/examples/index.js
+                              1:5   error  'foo' is assigned a value but never used  no-unused-vars
+                              1:11  error  'bar' is not defined                      no-undef
+
+                            ✖ 2 problems (2 errors, 0 warnings)
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h2>Command Line Linting (npm-scripts)</h2>
+                        <pre class="stretch"><code data-trim>
+                            {
+                              "name": "lmfao-examples",
+                              // ...
+                              "main": "index.js",
+                              "scripts": {
+                                "pretest": "npm run lint",
+                                "test": "echo \"Error: no test specified\" && exit 1",
+                                "lint": "eslint *.js",
+                                "lint-pretty": "eslint --format table *.js"
+                              },
+                              // ...
+                            }
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h2>Command Line Linting (npm-scripts)</h2>
+                        <pre class="stretch"><code data-trim>
+                            [~/code/personal/talks/LintingMFAO/examples]$ npm run lint-pretty                                                                                                      *[master]
+
+                            > lmfao-examples@0.0.1 lint-pretty /Users/jray/code/personal/talks/LintingMFAO/examples
+                            > eslint --format table *.js
+
+
+                            /Users/jray/code/personal/talks/LintingMFAO/examples/index.js
+
+                            ║ Line     │ Column   │ Type     │ Message                                                │ Rule ID              ║
+                            ╟──────────┼──────────┼──────────┼────────────────────────────────────────────────────────┼──────────────────────╢
+                            ║ 1        │ 5        │ error    │ 'foo' is assigned a value but never used.              │ no-unused-vars       ║
+                            ║ 1        │ 11       │ error    │ 'bar' is not defined.                                  │ no-undef             ║
+
+                            ╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+                            ║ 2 Errors                                                                                                       ║
+                            ╟────────────────────────────────────────────────────────────────────────────────────────────────────────────────╢
+                            ║ 0 Warnings                                                                                                     ║
+                            ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h2>Editor Linting</h2>
+
+                        <a href="http://eslint.org/docs/user-guide/integrations#editors">
+                            http://eslint.org/docs/user-guide/integrations#editors
+                        </a>
+
+                        <img src="./img/esLintEditorIntegrations.png"
+                            alt="Screenshot of ESLint editor integrations list">
+                    </section>
+
+                    <section>
+                        <h2>Editor Linting (Atom)</h2>
+
+                        <img src="./img/atomRuleErrorHover.png">
+                        <img src="./img/atomRuleErrorList.png">
+                    </section>
+                    <section>
+                        <h2>Build Linting (test and pre-push)</h2>
+                        <ul>
+                            <li>Free test integration with ember-cli-eslint</li>
+                            <li>pre-push git hook</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Build Linting (pre-push)</h2>
+                        <ul>
+                            <li>Run you linter (and tests) before any push</li>
+                            <li>npm package writes a local hook on install</li>
+                            <li>pre-push, prepush, prepush-hook</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Build Linting (pre-push)</h2>
+                        <pre class="stretch"><code data-trim>
+                            {
+                              // ...
+                              "scripts": {
+                                "pretest": "npm run lint",
+                                "test": "echo \"Error: no test specified\" && exit 1",
+                                "lint": "eslint *.js",
+                                "lint-pretty": "eslint --format table *.js"
+                              },
+                              "prepush": [
+                                "test"
+                              ],
+                              // ...
+                            }
+                        </code></pre>
+                    </section>
+                </section>
 			</div>
 		</div>
 
