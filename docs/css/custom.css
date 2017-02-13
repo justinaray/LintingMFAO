@@ -3,6 +3,10 @@
     text-transform: none;
 }
 
+.reveal .slides section figure figcaption {
+    font-size: .5em;
+}
+
 /* Global classes */
 
 div.columns {
@@ -23,12 +27,12 @@ ul.nested > li {
 
 /* Slide Specific styles */
 
+/* Remove spacing for "inting" string until displayed */
 .reveal .slides section.title-slide .title-flare {
     display: inline-block;
     width: 0;
     word-wrap: normal;
     color: #FFFFFF;
-    transition: opacity 0.5s linear;
 }
 
 .reveal .slides section.title-slide .title-flare.current-fragment,
@@ -36,10 +40,25 @@ ul.nested > li {
     width: auto;
     word-wrap: break-word;
     color: #FF0000;
-    text-transform: lowercase;
 }
 
+/* Customize title animation */
+.reveal .slides section.title-slide *[data-fragment-index="0"] {
+    transition: opacity 2s ease-in;
+}
 
-section#hat-trick-title figure figcaption {
+.reveal .slides section.title-slide figure {
+    margin-bottom: 3em;
+}
+
+.reveal .slides section.title-slide figure img {
+    margin-bottom: 0;
+}
+
+.reveal .slides section.title-slide figure figcaption {
+    margin-top: 0;
+}
+
+.reveal .slides section.title-slide footer {
     font-size: .5em;
 }
