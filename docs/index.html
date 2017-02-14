@@ -116,7 +116,7 @@
 				</section>
                 <section>
 					<section>
-						<h1>meh, I don't need that</h1>
+						<h1>meh, I don't need it</h1>
 
                         <img src="http://i.giphy.com/F8bo1LU5U5ApG.gif"
                             alt="Ron Burgandy saying 'Really'"
@@ -256,6 +256,17 @@
                         </code></pre>
                     </section>
                     <section>
+                        <h2>Config File Formats</h2>
+                        <ul style="list-style: none;">
+                            <li>.eslintrc.js</li>
+                            <li>.eslintrc.yaml</li>
+                            <li>.eslintrc.yml</li>
+                            <li>.eslintrc.json</li>
+                            <li>.eslintrc (Deprecated)</li>
+                            <li>package.json</li>
+                        </ul>
+                    </section>
+                    <section>
                         <pre class="stretch"><code data-trim>
                             module.exports = {
                                 "env": {
@@ -289,18 +300,75 @@
                     </section>
                     <section>
                         <h2>Running ESLint</h2>
-                        <pre class="stretch"><code data-trim>
+                        <pre style="width: 100%;"><code data-trim>
                             // welcome-to-eslint.js
                             var foo = bar;
+                        </code></pre>
 
-                            [~/code/personal/talks/LintingMFAO/examples]$ eslint index.js                                                                                                          *[master]
+                        <pre class="fragment" style="width: 100%;"><code data-trim>
+                            [.../LintingMFAO/examples]$ eslint welcome-to-eslint.js
+                        </code></pre>
 
-                            /Users/jray/code/personal/talks/LintingMFAO/examples/index.js
+                        <pre class="fragment" style="width: 100%;"><code data-trim>
+                            .../LintingMFAO/examples/welcome-to-eslint.js
                               1:5   error  'foo' is assigned a value but never used  no-unused-vars
                               1:11  error  'bar' is not defined                      no-undef
 
                             ✖ 2 problems (2 errors, 0 warnings)
                         </code></pre>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h1>Configuring ESLint</h1>
+
+                        <img src="http://i.giphy.com/3o6ZtbPOnNTqoPupCE.gif"
+                            alt="Fingers sliding a toggle switch back and forth"
+                            width="500" height="281">
+                    </section>
+                    <section>
+                        <h2>Config Hierarchy</h2>
+                        <ol>
+                            <li class="fragment">Inline (In-Code) Config</li>
+                            <li class="fragment">Command Line Options</li>
+                            <li class="fragment">Config Files</li>
+                            <li class="fragment">Parent Directories Config
+                                <ul class="fragment"><li>Opt out <pre><code>root: true</code></pre></li></ul>
+                            </li>
+                            <li class="fragment">~/.eslintrc.js
+                                <ul class="fragment"><li>(If no other config is found)</li></ul>
+                            </li>
+                        </ol>
+                    </section>
+					<section>
+						<p>
+							Hierarchy makes it simple to support
+						</p>
+                        <ul>
+                            <li class="fragment">Isomorphic Javascript Projects</li>
+                            <li class="fragment">Different styles within a repo
+                            </li>
+                        </ul>
+                    </section>
+                    <section>
+						<h2>Project Flexbility</h2>
+
+                        <ul class="directory-structure fragment">
+                            <li>your-app/
+                                <ul class="fragment">
+                                    <li>.eslintrc.js (Base Setup/Plugins)</li>
+                                    <li class="fragment">app/
+                                        <ul><li>.eslintrc.js (Browser env/Strict rules)</li></ul>
+                                    </li>
+                                    <li class="fragment">server/
+                                        <ul><li>.eslintrc.js (node env/CommonJS)</li></ul>
+                                    </li>
+                                    <li class="fragment">tests/
+                                        <ul><li>.eslintrc.js (lenient/globals)</li></ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
                     </section>
                 </section>
                 <section>
@@ -348,59 +416,28 @@
                         <h2>Rules are defined</h2>
 						<ul>
 							<li>ESLint core</li>
+                            <li>In-repo custom rules</li>
 							<li>Plugins (npm packages)</li>
-							<li>In-repo custom rules</li>
 						</ul>
                     </section>
-                </section>
-                <section>
                     <section>
-                        <h1>Configuring ESLint</h1>
-
-                        <img src="http://i.giphy.com/3o6ZtbPOnNTqoPupCE.gif"
-                            alt="Fingers sliding a toggle switch back and forth"
-                            width="500" height="281">
+                        <h1>Plugins?</h1>
+						<h2 class="fragment">Tell me more</h2>
                     </section>
                     <section>
-                        <h2>Config Files</h2>
-                        <ul style="list-style: none;">
-                            <li>.eslintrc.js</li>
-                            <li>.eslintrc.yaml</li>
-                            <li>.eslintrc.yml</li>
-                            <li>.eslintrc.json</li>
-                            <li>.eslintrc (Deprecated)</li>
-                            <li>package.json</li>
-                        </ul>
-                    </section>
-                    <section>
-                        <h2>Config Hierarchy</h2>
-                        <ol>
-                            <li class="fragment">Inline (In-Code) Config</li>
-                            <li class="fragment">Command Line Options</li>
-                            <li class="fragment">Config Files</li>
-                            <li class="fragment">Parent Directories Config
-                                <ul class="fragment"><li>Opt out <pre><code>root: true</code></pre></li></ul>
-                            </li>
-                            <li class="fragment">~/.eslintrc
-                                <ul class="fragment"><li>(If no other config is found)</li></ul>
-                            </li>
-                        </ol>
-                    </section>
-					<section>
-						<p>
-							Hierarchy makes it simple to support
-						</p>
-                        <ul class="nested">
-                            <li class="fragment">Isomorphic Javascript Projects</li>
-                            <li class="fragment">Different styles within a repo
-                                <ul style="list-style: none;">
-                                    <li class="fragment">your-app (Setup)</li>
-                                    <li class="fragment">├─ app (Browser/Strict rules)</li>
-                                    <li class="fragment">├─ server (node environment)</li>
-                                    <li class="fragment">└─ tests (More lenient - globals)</li>
-                                </ul>
-                            </li>
-                        </ul>
+                        <pre class="stretch"><code data-trim>
+                            module.exports = {
+                                // env, etc
+                                extends: [
+                                    'eslint:recommended',
+                                    'plugin:ember-suave/recommended'
+                                ],
+                                rules: {
+                                    // project-specific settings
+                                    // plugin-overrides!
+                                }
+                            };
+                        </code></pre>
                     </section>
                 </section>
                 <section>

@@ -25,6 +25,10 @@ ul.nested > li {
     margin-bottom: 20px;
 }
 
+ul.directory-structure li {
+    list-style: none;
+}
+
 /* Slide Specific styles */
 
 /* Remove spacing for "inting" string until displayed */
