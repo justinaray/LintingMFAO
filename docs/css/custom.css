@@ -66,3 +66,19 @@ ul.directory-structure li {
 .reveal .slides section.title-slide footer {
     font-size: .5em;
 }
+
+.reveal .slides section.outro-slide figure {
+    margin-bottom: 3em;
+}
+
+.reveal .slides section.outro-slide figure img {
+    margin-bottom: 0;
+}
+
+.reveal .slides section.outro-slide figure figcaption {
+    margin-top: 0;
+}
+
+.reveal .slides section.outro-slide footer {
+    font-size: .5em;
+}
