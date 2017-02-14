@@ -109,13 +109,7 @@
                                 </ul>
                             </li>
                             <li class="fragment">
-                                Fix Runtime Errors!
-                                <ul>
-                                    <li>Missing vars</li>
-                                    <li>Assignment in conditionals</li>
-                                    <li>Strict Equality</li>
-                                    <li>Missing constructors</li>
-                                </ul>
+                                Fix Runtime Errors
                             </li>
 						</ul>
 					</section>
@@ -153,29 +147,74 @@
 				</section>
                 <section>
 					<section>
-						<h1>You need linters</h1>
+						<h1>meh, I don't need that</h1>
 
                         <img src="http://i.giphy.com/F8bo1LU5U5ApG.gif"
                             alt="Ron Burgandy saying 'Really'"
                             class="fragment">
 					</section>
                     <section>
+                        <pre><code data-trim>
+                            // one-equals-two.js
+                            let one = 1;
+                            if (one = 2) {
+                                console.log('This should never print!');
+                            } else {
+                                console.log('Phew, the world makes sense');
+                                // You know you're writing javascript, right?
+                            }
+                        </code></pre>
+                        <pre class="fragment"><code data-trim>
+                            [.../LintingMFAO/examples]$ node one-equals-two.js
+                            This should never print!
+                        </code></pre>
+                    </section>
+                    <section>
+                        <img src="./img/oneEqualsTwoBug-atom.png"
+                            alt="Screenshot of Atom easily identifying the bug via the ESLint plugin">
+                    </section>
+                    <section>
+                        <pre><code data-trim>
+                            // printOne.js
+                            // Example from ESLint.org
+                            console.log('printOne:', printOne());
+
+                            function printOne() {
+                                try {
+                                    return 1;
+                                } catch (err) {
+                                    return 2;
+                                } finally {
+                                    return 3;
+                                }
+                            }
+                        </code></pre>
+                        <pre class="fragment"><code data-trim>
+                            [.../LintingMFAO/examples]$ node printOne.js
+                            printOne: 3
+                        </code></pre>
+                    </section>
+                    <section>
+                        <img src="./img/printOneBug-atom.png"
+                            alt="Screenshot of Atom easily identifying the bug via the ESLint plugin">
+                    </section>
+                    <section>
+                        <h2>And the list goes on</h2>
                         <ul>
-                            <li>Keep your baseline consistent (Esp in teams)</li>
+                            <li>eqeqeq</li>
+                            <li>no-script-url</li>
+                            <li>new-cap</li>
+                        </ul>
+					</section>
+                    <section>
+                        <h2>Styling is just the beginning</h2>
+                        <ul>
                             <li class="fragment">js is not compiled!</li>
                             <li class="fragment">
                                 Collections of best practices
-                                <ul>
-                                    <li>Assignment in conditionals</li>
-                                    <li>Strict Equality</li>
-                                </ul>
                             </li>
                             <li class="fragment">
-                                You don't know it all, use the community
-                                <ul>
-                                    <li>no-unsafe-finally</li>
-                                    <li>no-script-url</li>
-                                </ul>
+                                No one knows it all, use the community
                             </li>
                         </ul>
 					</section>
@@ -280,13 +319,11 @@
                         </code></pre>
                     </section>
                     <section>
-                        <span>index.js</span>
-                        <pre><code data-trim>
-                            var foo = bar;
-                        </code></pre>
-                    </section>
-                    <section>
+                        <h2>Running ESLint</h2>
                         <pre class="stretch"><code data-trim>
+                            // welcome-to-eslint.js
+                            var foo = bar;
+
                             [~/code/personal/talks/LintingMFAO/examples]$ eslint index.js                                                                                                          *[master]
 
                             /Users/jray/code/personal/talks/LintingMFAO/examples/index.js
@@ -528,6 +565,7 @@
                         <h2>Build Linting (pre-push)</h2>
                         <ul>
                             <li>Run you linter (and tests) before any push</li>
+                            <li>Keep your baseline consistent (Esp in teams)</li>
                             <li>npm package writes a local hook on install</li>
                             <li>pre-push, prepush, prepush-hook</li>
                         </ul>
