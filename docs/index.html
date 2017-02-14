@@ -225,11 +225,15 @@
                     <section data-background-iframe="http://eslint.org">
                     </section>
                     <section>
+                        <h2>Installation</h2>
                         <pre><code data-trim>
                             npm install -g eslint
                             npm init
                             npm install eslint --save-dev
+                        </code></pre>
 
+                        <h2 class="fragment" data-fragment-index=0>Initialization</h2>
+                        <pre class="fragment" data-fragment-index=0><code data-trim>
                             eslint --init
                             -or-
                             ./node_modules/.bin/eslint --init
@@ -405,7 +409,7 @@
                     <section>
                         <ul>
                             <li>Rules are well documented (eslint.org)</li>
-                            <li>
+                            <li class="fragment">
                                 All rules are similarly configured
                                 <br>
                                 (I'm looking at you jshint!)
@@ -446,10 +450,28 @@
                         <img src="http://www.gravatar.com/avatar/0cf15665a9146ba852bf042b0652780a?s=200"></img>
                     </section>
                     <section>
-                        <h2>ember-cli-eslint</h2>
                         <ul>
-                            <li class="fragment">Incorporates ESLint into your Ember CLI Project</li>
-                            <li class="fragment">Includes linting results in your tests!</li>
+                            <li>
+                                <a href="https://github.com/ember-cli/broccoli-lint-eslint">
+                                    broccoli-lint-eslint
+                                </a>
+                                <ul class="fragment"><li>Add eslint support to broccoli build</li></ul>
+                            </li>
+                            <li class="fragment">
+                                <a href="https://github.com/ember-cli/ember-cli-eslint">
+                                    ember-cli-eslint
+                                </a>
+                                <ul class="fragment">
+                                    <li>Sets up your app (blueprints)</li>
+                                    <li>Integrates with test infrastructure</li>
+                                </ul>
+                            </li>
+                            <li class="fragment">
+                                <a href="https://github.com/DockYard/eslint-plugin-ember-suave">
+                                    eslint-plugin-ember-suave
+                                </a>
+                                <ul class="fragment"><li>Adds the suave</li></ul>
+                            </li>
                         </ul>
                     </section>
                     <section>
@@ -466,9 +488,12 @@
                         </ul>
                     </section>
                     <section>
-                        <h2>Suave Installation</h2>
+                        <h2>Installation</h2>
                         <pre><code data-trim>
+                            # Install suave ESLint plugin
                             npm install --save-dev eslint-plugin-ember-suave
+
+                            # Install ESLint for Ember
                             ember install ember-cli-eslint
                         </code></pre>
                     </section>
@@ -617,7 +642,7 @@
                         </ul>
 					</section>
                     <section>
-                        <h2>Installing eslint-template-lint</h2>
+                        <h2>Installing ember-cli-template-lint</h2>
 
                         <pre><code data-trim>
                             ember install ember-cli-template-lint
