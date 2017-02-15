@@ -515,7 +515,7 @@
                     </ul>
                 </section>
                 <section>
-                    <h2>Command Line Linting (Manual)</h2>
+                    <h2>Command Line Linting</h2>
                     <pre class="stretch"><code data-trim>
                         [~/code/personal/talks/LintingMFAO/examples]$ eslint index.js                                                                                                          *[master]
 
@@ -524,46 +524,6 @@
                           1:11  error  'bar' is not defined                      no-undef
 
                         ✖ 2 problems (2 errors, 0 warnings)
-                    </code></pre>
-                </section>
-                <section>
-                    <h2>Command Line Linting (npm-scripts)</h2>
-                    <pre class="stretch"><code data-trim>
-                        {
-                          "name": "lmfao-examples",
-                          // ...
-                          "main": "index.js",
-                          "scripts": {
-                            "pretest": "npm run lint",
-                            "test": "echo \"Error: no test specified\" && exit 1",
-                            "lint": "eslint *.js",
-                            "lint-pretty": "eslint --format table *.js"
-                          },
-                          // ...
-                        }
-                    </code></pre>
-                </section>
-                <section>
-                    <h2>Command Line Linting (npm-scripts)</h2>
-                    <pre class="stretch"><code data-trim>
-                        [~/code/personal/talks/LintingMFAO/examples]$ npm run lint-pretty                                                                                                      *[master]
-
-                        > lmfao-examples@0.0.1 lint-pretty /Users/jray/code/personal/talks/LintingMFAO/examples
-                        > eslint --format table *.js
-
-
-                        /Users/jray/code/personal/talks/LintingMFAO/examples/index.js
-
-                        ║ Line     │ Column   │ Type     │ Message                                                │ Rule ID              ║
-                        ╟──────────┼──────────┼──────────┼────────────────────────────────────────────────────────┼──────────────────────╢
-                        ║ 1        │ 5        │ error    │ 'foo' is assigned a value but never used.              │ no-unused-vars       ║
-                        ║ 1        │ 11       │ error    │ 'bar' is not defined.                                  │ no-undef             ║
-
-                        ╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-                        ║ 2 Errors                                                                                                       ║
-                        ╟────────────────────────────────────────────────────────────────────────────────────────────────────────────────╢
-                        ║ 0 Warnings                                                                                                     ║
-                        ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
                     </code></pre>
                 </section>
                 <section>
@@ -585,6 +545,7 @@
                     <ul>
                         <li class="fragment">Easily recognizable errors/warnings</li>
                         <li class="fragment">Deep link to eslint.org rule docs</li>
+                        <li class="fragment">Auto-fix on save</li>
                         <li class="fragment">Supports eslint plugins</li>
                         <li class="fragment">Supports multiple versions of ESLint</li>
                     </ul>
@@ -697,6 +658,105 @@
                             </ul>
                         </li>
                     </ul>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h1>More Tooling</h1>
+                    <img src="http://i.giphy.com/ru8EVQCwXvXVe.gif"
+                        alt="Tim 'the tool man' Taylor with a power tool"
+                        width="322" height="243">
+                </section>
+                <section>
+                    <h1>Autofix</h1>
+                    <ul>
+                        <li>eslint --fix index.js</li>
+                        <li>Some errors are not auto-fixable</li>
+                        <li>Great for individual file(s)</li>
+                        <li>YMMV as a migration tool</li>
+                    </ul>
+                </section>
+                <section>
+                    <h1>eslint-nibble</h1>
+                    <ul>
+                        <li>Categorize errors</li>
+                        <li>Tackle rules one at a time</li>
+                    </ul>
+                </section>
+                <section>
+                    <pre class="stretch"><code data-trim>
+                        [../LintingMFAO/examples]$ node_modules/.bin/eslint-nibble *.js
+                        no-constant-condition: 1|
+                        no-cond-assign:        1|
+                        no-unsafe-finally:     1|
+                        no-unused-vars:        1|
+                        no-undef:              1|
+
+
+                        3 files checked.  0 passed.  3 failed.  0 warnings.  5 errors.
+
+                        ? Type in the rule you want to focus on no-undef
+
+                          ✘  http://eslint.org/docs/rules/no-undef  'bar' is not defined
+                          /Users/jray/code/personal/talks/LintingMFAO/examples/welcome-to-eslint.js:4:11
+                          var foo = bar;
+                                     ^
+
+
+                        ✘ 1 problem (1 error, 0 warnings)
+
+
+                        Errors:
+                          1  http://eslint.org/docs/rules/no-undef
+                    </code></pre>
+                </section>
+                <section>
+                    <h1>npm-scripts</h1>
+                    <ul>
+                        <li>Define scripts in package.json</li>
+                        <li>Easy to run</li>
+                        <li>Customize eslint cli (format, rules, etc.)</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>npm-scripts - ESLint format</h2>
+                    <pre class="stretch"><code data-trim>
+                        {
+                          "name": "lmfao-examples",
+                          // ...
+                          "main": "index.js",
+                          "scripts": {
+                            "pretest": "npm run lint",
+                            "test": "echo \"Error: no test specified\" && exit 1",
+                            "lint": "eslint *.js",
+                            "lint-pretty": "eslint --format table *.js"
+                          },
+                          // ...
+                        }
+                    </code></pre>
+                </section>
+                <section>
+                    <h2>npm-scripts - ESLint format output</h2>
+                    <pre class="stretch"><code data-trim>
+                        [~/code/personal/talks/LintingMFAO/examples]$ npm run lint-pretty                                                                                                      *[master]
+
+                        > lmfao-examples@0.0.1 lint-pretty /Users/jray/code/personal/talks/LintingMFAO/examples
+                        > eslint --format table *.js
+
+
+                        /Users/jray/code/personal/talks/LintingMFAO/examples/index.js
+
+                        ║ Line     │ Column   │ Type     │ Message                                                │ Rule ID              ║
+                        ╟──────────┼──────────┼──────────┼────────────────────────────────────────────────────────┼──────────────────────╢
+                        ║ 1        │ 5        │ error    │ 'foo' is assigned a value but never used.              │ no-unused-vars       ║
+                        ║ 1        │ 11       │ error    │ 'bar' is not defined.                                  │ no-undef             ║
+
+                        ╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+                        ║ 2 Errors                                                                                                       ║
+                        ╟────────────────────────────────────────────────────────────────────────────────────────────────────────────────╢
+                        ║ 0 Warnings                                                                                                     ║
+                        ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+                    </code></pre>
                 </section>
             </section>
             <section class="outro-slide">
