@@ -670,11 +670,50 @@
                 <section>
                     <h1>Autofix</h1>
                     <ul>
-                        <li>eslint --fix index.js</li>
+                        <li>Automatically fix errors</li>
                         <li>Some errors are not auto-fixable</li>
                         <li>Great for individual file(s)</li>
                         <li>YMMV as a migration tool</li>
                     </ul>
+                </section>
+                <section>
+                    <pre class="stretch"><code data-trim>
+                        [.../LintingMFAO/examples]$ eslint welcome-to-eslint.js
+
+                        .../LintingMFAO/examples/welcome-to-eslint.js
+                          5:5   error  'foo' is assigned a value but never used      no-unused-vars
+                          5:11  error  'bar' is not defined                          no-undef
+                          7:10  error  'soMuchLint' is defined but never used        no-unused-vars
+                          8:3   error  Expected indentation of 4 spaces but found 2  indent
+                          8:16  error  Infix operators must be spaced                space-infix-ops
+                          8:17  error  Strings must use singlequote                  quotes
+                          8:24  error  Strings must use singlequote                  quotes
+                          8:32  error  Missing semicolon                             semi
+
+                        ✖ 8 problems (8 errors, 0 warnings)
+
+                        [.../LintingMFAO/examples]$ tail -3 welcome-to-eslint.js
+                        function soMuchLint(choice) {
+                          return choice?"tabs":"spaces"
+                        }
+                    </code></pre>
+                </section>
+                <section>
+                    <pre class="stretch"><code data-trim>
+                        [.../LintingMFAO/examples]$ eslint --fix welcome-to-eslint.js
+
+                        .../LintingMFAO/examples/welcome-to-eslint.js
+                          5:5   error  'foo' is assigned a value but never used  no-unused-vars
+                          5:11  error  'bar' is not defined                      no-undef
+                          7:10  error  'soMuchLint' is defined but never used    no-unused-vars
+
+                        ✖ 3 problems (3 errors, 0 warnings)
+
+                        [.../LintingMFAO/examples]$ tail -3 welcome-to-eslint.js
+                        function soMuchLint(choice) {
+                            return choice ? 'tabs' : 'spaces';
+                        }
+                    </code></pre>
                 </section>
                 <section>
                     <h1>eslint-nibble</h1>
