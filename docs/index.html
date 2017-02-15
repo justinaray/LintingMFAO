@@ -1,732 +1,734 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>LintingMFAO - ESLint and Ember by Justin Ray</title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/league.css">
-        <link rel="stylesheet" href="css/custom.css">
+    <title>LintingMFAO - ESLint and Ember by Justin Ray</title>
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/league.css">
+    <link rel="stylesheet" href="css/custom.css">
 
-		<!-- Printing and PDF exports -->
-		<script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
-		</script>
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section class="title-slide">
-                    <h1>
-                        L<div class="fragment title-flare" data-fragment-index="1">inting </div>MFAO
-                    </h1>
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
 
-                    <figure class="fragment" data-fragment-index="1" style="margin-bottom: 3em;">
-                        <img src="http://i.giphy.com/Uicl6FGLXo1os.gif"
-                            alt="Redfoo singing LMFAO's hit, Sexy and I Know It"
-                            width="400px" height="225">
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section class="title-slide">
+                <h1>
+                    L<div class="fragment title-flare" data-fragment-index="1">inting </div>MFAO
+                </h1>
+
+                <figure class="fragment" data-fragment-index="1" style="margin-bottom: 3em;">
+                    <img src="http://i.giphy.com/Uicl6FGLXo1os.gif" alt="Redfoo singing LMFAO's hit, Sexy and I Know It" width="400px" height="225">
+                    <figcaption>
+                        (Sexy Code and I Know It!)
+                    </figcaption>
+                </figure>
+
+                <footer>
+                    <div class="venue">Triangle Ember - 2/15/2017</div>
+                    <div class="author">
+                        Justin Ray
+                        <br> @thejustinaray
+                    </div>
+                </footer>
+            </section>
+            <section>
+                <section>
+                    <h1>What's a Linter?</h1>
+
+                    <img src="http://i.giphy.com/36wFjYXcNClzi.gif" alt="Using a lint roller on a cat" width="260" height="339">
+                </section>
+                <section>
+                    <p>Software that checks and cleans your code</p>
+                </section>
+                <section>
+                    <ul class="nested">
+                        <li>
+                            Syntactic Errors
+                            <ul>
+                                <li>Missing Braces/Parens</li>
+                                <li>Undefined Variables/Functions</li>
+                            </ul>
+                        </li>
+                        <li class="fragment">
+                            Formatting/Preferences
+                            <ul>
+                                <li>Spacing</li>
+                                <li>Semis</li>
+                                <li>Vars on Top</li>
+                            </ul>
+                        </li>
+                        <li class="fragment">
+                            Stylistic Preferences
+                            <ul>
+                                <li>Object shorthand</li>
+                                <li>Template literals</li>
+                                <li>Yoda Conditionals</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <img src="http://i.giphy.com/11FRmJRii0I8iA.gif" alt="But wait">
+                    <div class="fragment">There's More</div>
+                </section>
+                <section>
+                    <div>Linters do so much more</div>
+                    <div class="fragment">They improve your code!</div>
+                </section>
+                <section>
+                    <ul class="nested">
+                        <li>
+                            Remove Debugging Code
+                            <ul>
+                                <li>Console, Debugger statements</li>
+                            </ul>
+                        </li>
+                        <li class="fragment">
+                            Find Dead Code
+                            <ul>
+                                <li>Unused vars, Unreachable code</li>
+                            </ul>
+                        </li>
+                        <li class="fragment">
+                            Fix Runtime Errors
+                        </li>
+                    </ul>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h1>meh, I don't need it</h1>
+
+                    <img src="http://i.giphy.com/F8bo1LU5U5ApG.gif" alt="Ron Burgandy saying 'Really'" class="fragment">
+                </section>
+                <section>
+                    <pre><code data-trim>
+                        // one-equals-two.js
+                        let one = 1;
+                        if (one = 2) {
+                            console.log('This should never print!');
+                        } else {
+                            console.log('Phew, the world makes sense');
+                            // You know you're writing javascript, right?
+                        }
+                    </code></pre>
+                    <pre class="fragment"><code data-trim>
+                        [.../LintingMFAO/examples]$ node one-equals-two.js
+                        This should never print!
+                    </code></pre>
+                </section>
+                <section>
+                    <img src="./img/oneEqualsTwoBug-atom.png" alt="Screenshot of Atom easily identifying the bug via the ESLint plugin">
+                </section>
+                <section>
+                    <pre><code data-trim>
+                        // printOne.js
+                        // Example from ESLint.org
+                        console.log('printOne:', printOne());
+
+                        function printOne() {
+                            try {
+                                return 1;
+                            } catch (err) {
+                                return 2;
+                            } finally {
+                                return 3;
+                            }
+                        }
+                    </code></pre>
+                    <pre class="fragment"><code data-trim>
+                        [.../LintingMFAO/examples]$ node printOne.js
+                        printOne: 3
+                    </code></pre>
+                </section>
+                <section>
+                    <img src="./img/printOneBug-atom.png" alt="Screenshot of Atom easily identifying the bug via the ESLint plugin">
+                </section>
+                <section>
+                    <h2>And the list goes on</h2>
+                    <ul>
+                        <li>eqeqeq</li>
+                        <li>no-script-url</li>
+                        <li>new-cap</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Styling is just the beginning</h2>
+                    <ul>
+                        <li class="fragment">js is not compiled!</li>
+                        <li class="fragment">
+                            Collections of best practices
+                        </li>
+                        <li class="fragment">
+                            No one knows it all, use the community
+                        </li>
+                    </ul>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h1>Linter History</h1>
+
+                    <figure>
+                        <img src="https://upload.wikimedia.org/wikipedia/en/9/90/Internet_Explorer_6_with_classic_styles.png" alt="A screenshot of wikipedia in Internet Explorer 6" width="400" height="287">
                         <figcaption>
-                            (Sexy Code and I Know It!)
+                            (Photo: Microsoft/
+                            <a href="https://en.wikipedia.org/wiki/File:Internet_Explorer_6_with_classic_styles.png">Wikipedia</a>)
                         </figcaption>
                     </figure>
-
-                    <footer>
-                        <div class="venue">Triangle Ember - 2/15/2017</div>
-                        <div class="author">
-                            Justin Ray
-                            <br>
-                            @thejustinaray
-                        </div>
-                    </footer>
-				</section>
-				<section>
-					<section>
-						<h1>What's a Linter?</h1>
-
-                        <img src="http://i.giphy.com/36wFjYXcNClzi.gif"
-                            alt="Using a lint roller on a cat"
-                            width="260" height="339">
-					</section>
-                    <section>
-                        <p>Software that checks and cleans your code</p>
-                    </section>
-					<section>
-						<ul class="nested">
-                            <li>
-                                Syntactic Errors
-                                <ul>
-                                    <li>Missing Braces/Parens</li>
-                                    <li>Undefined Variables/Functions</li>
-                                </ul>
-                            </li>
-                            <li class="fragment">
-                                Formatting/Preferences
-                                <ul>
-                                    <li>Spacing</li>
-                                    <li>Semis</li>
-                                    <li>Vars on Top</li>
-                                </ul>
-                            </li>
-							<li class="fragment">
-                                Stylistic Preferences
-                                <ul>
-                                    <li>Object shorthand</li>
-                                    <li>Template literals</li>
-                                    <li>Yoda Conditionals</li>
-                                </ul>
-                            </li>
-						</ul>
-					</section>
-                    <section>
-                        <img src="http://i.giphy.com/11FRmJRii0I8iA.gif" alt="But wait">
-                        <div class="fragment">There's More</div>
-					</section>
-                    <section>
-                        <div>Linters do so much more</div>
-                        <div class="fragment">They improve your code!</div>
-					</section>
-                    <section>
-						<ul class="nested">
-							<li>
-                                Remove Debugging Code
-                                <ul>
-                                    <li>Console, Debugger statements</li>
-                                </ul>
-                            </li>
-							<li class="fragment">
-                                Find Dead Code
-                                <ul>
-                                    <li>Unused vars, Unreachable code</li>
-                                </ul>
-                            </li>
-                            <li class="fragment">
-                                Fix Runtime Errors
-                            </li>
-						</ul>
-					</section>
-				</section>
-                <section>
-					<section>
-						<h1>meh, I don't need it</h1>
-
-                        <img src="http://i.giphy.com/F8bo1LU5U5ApG.gif"
-                            alt="Ron Burgandy saying 'Really'"
-                            class="fragment">
-					</section>
-                    <section>
-                        <pre><code data-trim>
-                            // one-equals-two.js
-                            let one = 1;
-                            if (one = 2) {
-                                console.log('This should never print!');
-                            } else {
-                                console.log('Phew, the world makes sense');
-                                // You know you're writing javascript, right?
-                            }
-                        </code></pre>
-                        <pre class="fragment"><code data-trim>
-                            [.../LintingMFAO/examples]$ node one-equals-two.js
-                            This should never print!
-                        </code></pre>
-                    </section>
-                    <section>
-                        <img src="./img/oneEqualsTwoBug-atom.png"
-                            alt="Screenshot of Atom easily identifying the bug via the ESLint plugin">
-                    </section>
-                    <section>
-                        <pre><code data-trim>
-                            // printOne.js
-                            // Example from ESLint.org
-                            console.log('printOne:', printOne());
-
-                            function printOne() {
-                                try {
-                                    return 1;
-                                } catch (err) {
-                                    return 2;
-                                } finally {
-                                    return 3;
-                                }
-                            }
-                        </code></pre>
-                        <pre class="fragment"><code data-trim>
-                            [.../LintingMFAO/examples]$ node printOne.js
-                            printOne: 3
-                        </code></pre>
-                    </section>
-                    <section>
-                        <img src="./img/printOneBug-atom.png"
-                            alt="Screenshot of Atom easily identifying the bug via the ESLint plugin">
-                    </section>
-                    <section>
-                        <h2>And the list goes on</h2>
-                        <ul>
-                            <li>eqeqeq</li>
-                            <li>no-script-url</li>
-                            <li>new-cap</li>
-                        </ul>
-					</section>
-                    <section>
-                        <h2>Styling is just the beginning</h2>
-                        <ul>
-                            <li class="fragment">js is not compiled!</li>
-                            <li class="fragment">
-                                Collections of best practices
-                            </li>
-                            <li class="fragment">
-                                No one knows it all, use the community
-                            </li>
-                        </ul>
-					</section>
                 </section>
                 <section>
-					<section>
-						<h1>Linter History</h1>
+                    <ul>
+                        <li>jslint</li>
+                        <li class="fragment">jshint</li>
+                        <li class="fragment">jscs</li>
+                        <li class="fragment">eslint</li>
+                    </ul>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h1>ESLint Setup</h1>
 
-                        <figure>
-                            <img src="https://upload.wikimedia.org/wikipedia/en/9/90/Internet_Explorer_6_with_classic_styles.png"
-                                alt="A screenshot of wikipedia in Internet Explorer 6"
-                                width="400" height="287">
-                            <figcaption>
-                                (Photo: Microsoft/
-                                <a href="https://en.wikipedia.org/wiki/File:Internet_Explorer_6_with_classic_styles.png">Wikipedia</a>)
-                            </figcaption>
-                        </figure>
-					</section>
-                    <section>
-                        <ul>
-                            <li>jslint</li>
-                            <li class="fragment">jshint</li>
-                            <li class="fragment">jscs</li>
-                            <li class="fragment">eslint</li>
-                        </ul>
-					</section>
+                    <img src="http://i.giphy.com/rRxFKMpDq4Ez6.gif" alt="Michael Buffer saying his trademark 'Let's Get Ready to Rumble'" width="229" height="162">
                 </section>
                 <section>
-                    <section>
-						<h1>ESLint Setup</h1>
-
-                        <img src="http://i.giphy.com/rRxFKMpDq4Ez6.gif"
-                            alt="Michael Buffer saying his trademark 'Let's Get Ready to Rumble'"
-                            width="229" height="162">
-					</section>
-                    <section>
-						<div>ESLint site is Awesome!</div>
-					</section>
-                    <section data-background-iframe="http://eslint.org">
-                    </section>
-                    <section>
-                        <h2>Installation</h2>
-                        <pre><code data-trim>
-                            npm install -g eslint
-                            npm init
-                            npm install eslint --save-dev
-                        </code></pre>
-
-                        <h2 class="fragment" data-fragment-index=0>Initialization</h2>
-                        <pre class="fragment" data-fragment-index=0><code data-trim>
-                            eslint --init
-                            -or-
-                            ./node_modules/.bin/eslint --init
-                        </code></pre>
-                    </section>
-                    <section>
-                        <pre class="stretch"><code data-trim>
-                            [~/code/personal/talks/LintingMFAO/examples]$ ./node_modules/.bin/eslint --init                                                                                        *[master]
-                            ? How would you like to configure ESLint? Answer questions about your style
-                            ? Are you using ECMAScript 6 features? Yes
-                            ? Are you using ES6 modules? Yes
-                            ? Where will your code run? Browser
-                            ? Do you use CommonJS? No
-                            ? Do you use JSX? No
-                            ? What style of indentation do you use? Spaces
-                            ? What quotes do you use for strings? Single
-                            ? What line endings do you use? Unix
-                            ? Do you require semicolons? Yes
-                            ? What format do you want your config file to be in? (Use arrow keys)
-                            ❯ JavaScript
-                              YAML
-                              JSON
-
-                        </code></pre>
-                    </section>
-                    <section>
-                        <h2>Config File Formats</h2>
-                        <ul style="list-style: none;">
-                            <li>.eslintrc.js</li>
-                            <li>.eslintrc.yaml</li>
-                            <li>.eslintrc.yml</li>
-                            <li>.eslintrc.json</li>
-                            <li>.eslintrc (Deprecated)</li>
-                            <li>package.json</li>
-                        </ul>
-                    </section>
-                    <section>
-                        <pre class="stretch"><code data-trim>
-                            module.exports = {
-                                "env": {
-                                    "browser": true,
-                                    "es6": true
-                                },
-                                "extends": "eslint:recommended",
-                                "parserOptions": {
-                                    "sourceType": "module"
-                                },
-                                "rules": {
-                                    "indent": [
-                                        "error",
-                                        4
-                                    ],
-                                    "linebreak-style": [
-                                        "error",
-                                        "unix"
-                                    ],
-                                    "quotes": [
-                                        "error",
-                                        "single"
-                                    ],
-                                    "semi": [
-                                        "error",
-                                        "always"
-                                    ]
-                                }
-                            };
-                        </code></pre>
-                    </section>
-                    <section>
-                        <h2>Running ESLint</h2>
-                        <pre style="width: 100%;"><code data-trim>
-                            // welcome-to-eslint.js
-                            var foo = bar;
-                        </code></pre>
-
-                        <pre class="fragment" style="width: 100%;"><code data-trim>
-                            [.../LintingMFAO/examples]$ eslint welcome-to-eslint.js
-                        </code></pre>
-
-                        <pre class="fragment" style="width: 100%;"><code data-trim>
-                            .../LintingMFAO/examples/welcome-to-eslint.js
-                              1:5   error  'foo' is assigned a value but never used  no-unused-vars
-                              1:11  error  'bar' is not defined                      no-undef
-
-                            ✖ 2 problems (2 errors, 0 warnings)
-                        </code></pre>
-                    </section>
+                    <div>ESLint site is Awesome!</div>
+                </section>
+                <section data-background-iframe="http://eslint.org">
                 </section>
                 <section>
-                    <section>
-                        <h1>Configuring ESLint</h1>
+                    <h2>Installation</h2>
+                    <pre><code data-trim>
+                        npm install -g eslint
+                        npm init
+                        npm install eslint --save-dev
+                    </code></pre>
 
-                        <img src="http://i.giphy.com/3o6ZtbPOnNTqoPupCE.gif"
-                            alt="Fingers sliding a toggle switch back and forth"
-                            width="500" height="281">
-                    </section>
-                    <section>
-                        <h2>Config Hierarchy</h2>
-                        <ol>
-                            <li class="fragment">Inline (In-Code) Config</li>
-                            <li class="fragment">Command Line Options</li>
-                            <li class="fragment">Config Files</li>
-                            <li class="fragment">Parent Directories Config
-                                <ul class="fragment"><li>Opt out <pre><code>root: true</code></pre></li></ul>
-                            </li>
-                            <li class="fragment">~/.eslintrc.js
-                                <ul class="fragment"><li>(If no other config is found)</li></ul>
-                            </li>
-                        </ol>
-                    </section>
-					<section>
-						<p>
-							Hierarchy makes it simple to support
-						</p>
-                        <ul>
-                            <li class="fragment">Isomorphic Javascript Projects</li>
-                            <li class="fragment">Different styles within a repo
-                            </li>
-                        </ul>
-                    </section>
-                    <section>
-						<h2>Project Flexbility</h2>
-
-                        <ul class="directory-structure fragment">
-                            <li>your-app/
-                                <ul class="fragment">
-                                    <li>.eslintrc.js (Base Setup/Plugins)</li>
-                                    <li class="fragment">app/
-                                        <ul><li>.eslintrc.js (Browser env/Strict rules)</li></ul>
-                                    </li>
-                                    <li class="fragment">server/
-                                        <ul><li>.eslintrc.js (node env/CommonJS)</li></ul>
-                                    </li>
-                                    <li class="fragment">tests/
-                                        <ul><li>.eslintrc.js (lenient/globals)</li></ul>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </section>
+                    <h2 class="fragment" data-fragment-index=0>Initialization</h2>
+                    <pre class="fragment" data-fragment-index=0><code data-trim>
+                        eslint --init
+                        # -or-
+                        ./node_modules/.bin/eslint --init
+                    </code></pre>
                 </section>
                 <section>
-                    <section>
-                        <h1>ESLint Rules</h1>
+                    <pre class="stretch"><code data-trim>
+                        [~/code/personal/talks/LintingMFAO/examples]$ ./node_modules/.bin/eslint --init                                                                                        *[master]
+                        ? How would you like to configure ESLint? Answer questions about your style
+                        ? Are you using ECMAScript 6 features? Yes
+                        ? Are you using ES6 modules? Yes
+                        ? Where will your code run? Browser
+                        ? Do you use CommonJS? No
+                        ? Do you use JSX? No
+                        ? What style of indentation do you use? Spaces
+                        ? What quotes do you use for strings? Single
+                        ? What line endings do you use? Unix
+                        ? Do you require semicolons? Yes
+                        ? What format do you want your config file to be in? (Use arrow keys)
+                        ❯ JavaScript
+                          YAML
+                          JSON
 
-                        <img src="http://i.giphy.com/l41YvrPpvl6OzMklG.gif"
-                            alt="Mechanic slides out from under car on creeper"
-                            width="396" height="225">
-                    </section>
-                    <section>
-                        <p>Code is linted by a set of configurable rules</p>
-                    </section>
-                    <section>
-                        <pre class="stretch"><code data-trim>
-                            module.exports = {
-                                // ...
-                                "rules": {
-                                    "indent": [    // Rule Name
-                                        "error",   // Warning Type: off (0), warn (1), error (2)
-                                        4          // Options
-                                    ],
-                                    "new-cap": ["error", {  // Object Options
-                                        "capIsNew": false
-                                    }],
-                                    "quotes": ["error",
-                                        "single ", {        // Multiple Option Params
-                                        "allowTemplateLiterals": true
-                                    }],
-                                }
-                            };
-                        </code></pre>
-                    </section>
-                    <section>
-                        <ul>
-                            <li>Rules are well documented (eslint.org)</li>
-                            <li class="fragment">
-                                All rules are similarly configured
-                                <br>
-                                (I'm looking at you jshint!)
-                            </li>
-                        </ul>
-                    </section>
-					<section>
-                        <h2>Rules are defined</h2>
-						<ul>
-							<li>ESLint core</li>
-                            <li>In-repo custom rules</li>
-							<li>Plugins (npm packages)</li>
-						</ul>
-                    </section>
-                    <section>
-                        <h1>Plugins?</h1>
-						<h2 class="fragment">Tell me more</h2>
-                    </section>
-                    <section>
-                        <pre class="stretch"><code data-trim>
-                            module.exports = {
-                                // env, etc
-                                extends: [
-                                    'eslint:recommended',
-                                    'plugin:ember-suave/recommended'
+                    </code></pre>
+                </section>
+                <section>
+                    <h2>Config File Formats</h2>
+                    <ul style="list-style: none;">
+                        <li>.eslintrc.js</li>
+                        <li>.eslintrc.yaml</li>
+                        <li>.eslintrc.yml</li>
+                        <li>.eslintrc.json</li>
+                        <li>.eslintrc (Deprecated)</li>
+                        <li>package.json</li>
+                    </ul>
+                </section>
+                <section>
+                    <pre class="stretch"><code data-trim>
+                        module.exports = {
+                            "env": {
+                                "browser": true,
+                                "es6": true
+                            },
+                            "extends": "eslint:recommended",
+                            "parserOptions": {
+                                "sourceType": "module"
+                            },
+                            "rules": {
+                                "indent": [
+                                    "error",
+                                    4
                                 ],
-                                rules: {
-                                    // project-specific settings
-                                    // plugin-overrides!
-                                }
-                            };
-                        </code></pre>
-                    </section>
-                </section>
-                <section>
-                    <section>
-                        <h1>ESLint in Ember</h1>
-                        <img src="http://www.gravatar.com/avatar/0cf15665a9146ba852bf042b0652780a?s=200"></img>
-                    </section>
-                    <section>
-                        <ul>
-                            <li>
-                                <a href="https://github.com/ember-cli/broccoli-lint-eslint">
-                                    broccoli-lint-eslint
-                                </a>
-                                <ul class="fragment"><li>Add eslint support to broccoli build</li></ul>
-                            </li>
-                            <li class="fragment">
-                                <a href="https://github.com/ember-cli/ember-cli-eslint">
-                                    ember-cli-eslint
-                                </a>
-                                <ul class="fragment">
-                                    <li>Sets up your app (blueprints)</li>
-                                    <li>Integrates with test infrastructure</li>
-                                </ul>
-                            </li>
-                            <li class="fragment">
-                                <a href="https://github.com/DockYard/eslint-plugin-ember-suave">
-                                    eslint-plugin-ember-suave
-                                </a>
-                                <ul class="fragment"><li>Adds the suave</li></ul>
-                            </li>
-                        </ul>
-                    </section>
-                    <section>
-                        <h2>eslint-plugin-ember-suave</h2>
-                        <img class="fragment" src="http://i.giphy.com/105sHJbsNQZEzK.gif"></img>
-                    </section>
-                    <section>
-                        <h2>eslint-plugin-ember-suave</h2>
-                        <ul>
-                            <li class="fragment">Ember-specific, community styling by Dockyard</li>
-                            <li class="fragment">Custom Rules</li>
-                            <li class="fragment">Great ESLint rule base</li>
-                            <li class="fragment">You'll have to tweak a few things</li>
-                        </ul>
-                    </section>
-                    <section>
-                        <h2>Installation</h2>
-                        <pre><code data-trim>
-                            # Install suave ESLint plugin
-                            npm install --save-dev eslint-plugin-ember-suave
-
-                            # Install ESLint for Ember
-                            ember install ember-cli-eslint
-                        </code></pre>
-                    </section>
-                </section>
-                <section>
-                    <section id="hat-trick-title">
-                        <h1>Linting Hat Trick</h1>
-                        <figure>
-                            <img src="http://www.gannett-cdn.com/-mm-/283a677b5cfa7796ee2c922210c97549f88dbdd8/c=386-0-4304-2946&r=x404&c=534x401/local/-/media/2017/01/31/USATODAY/USATODAY/636214986703219322-USATSI-9851013.jpg"
-                                width="400px">
-                            <figcaption>(Photo: James Guillory, USA TODAY Sports)</figcaption>
-                        </figure>
-
-                    </section>
-                    <section>
-                        <h2>Same linting results</h2>
-                        <ul>
-                            <li>Command Line</li>
-                            <li>Editor</li>
-                            <li>Build (test and pre-push)</li>
-                        </ul>
-                    </section>
-                    <section>
-                        <h2>Command Line Linting (Manual)</h2>
-                        <pre class="stretch"><code data-trim>
-                            [~/code/personal/talks/LintingMFAO/examples]$ eslint index.js                                                                                                          *[master]
-
-                            /Users/jray/code/personal/talks/LintingMFAO/examples/index.js
-                              1:5   error  'foo' is assigned a value but never used  no-unused-vars
-                              1:11  error  'bar' is not defined                      no-undef
-
-                            ✖ 2 problems (2 errors, 0 warnings)
-                        </code></pre>
-                    </section>
-                    <section>
-                        <h2>Command Line Linting (npm-scripts)</h2>
-                        <pre class="stretch"><code data-trim>
-                            {
-                              "name": "lmfao-examples",
-                              // ...
-                              "main": "index.js",
-                              "scripts": {
-                                "pretest": "npm run lint",
-                                "test": "echo \"Error: no test specified\" && exit 1",
-                                "lint": "eslint *.js",
-                                "lint-pretty": "eslint --format table *.js"
-                              },
-                              // ...
+                                "linebreak-style": [
+                                    "error",
+                                    "unix"
+                                ],
+                                "quotes": [
+                                    "error",
+                                    "single"
+                                ],
+                                "semi": [
+                                    "error",
+                                    "always"
+                                ]
                             }
-                        </code></pre>
-                    </section>
-                    <section>
-                        <h2>Command Line Linting (npm-scripts)</h2>
-                        <pre class="stretch"><code data-trim>
-                            [~/code/personal/talks/LintingMFAO/examples]$ npm run lint-pretty                                                                                                      *[master]
-
-                            > lmfao-examples@0.0.1 lint-pretty /Users/jray/code/personal/talks/LintingMFAO/examples
-                            > eslint --format table *.js
-
-
-                            /Users/jray/code/personal/talks/LintingMFAO/examples/index.js
-
-                            ║ Line     │ Column   │ Type     │ Message                                                │ Rule ID              ║
-                            ╟──────────┼──────────┼──────────┼────────────────────────────────────────────────────────┼──────────────────────╢
-                            ║ 1        │ 5        │ error    │ 'foo' is assigned a value but never used.              │ no-unused-vars       ║
-                            ║ 1        │ 11       │ error    │ 'bar' is not defined.                                  │ no-undef             ║
-
-                            ╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-                            ║ 2 Errors                                                                                                       ║
-                            ╟────────────────────────────────────────────────────────────────────────────────────────────────────────────────╢
-                            ║ 0 Warnings                                                                                                     ║
-                            ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
-                        </code></pre>
-                    </section>
-                    <section>
-                        <h2>Editor Linting</h2>
-
-                        <a href="http://eslint.org/docs/user-guide/integrations#editors">
-                            http://eslint.org/docs/user-guide/integrations#editors
-                        </a>
-
-                        <img src="./img/esLintEditorIntegrations.png"
-                            alt="Screenshot of ESLint editor integrations list">
-                    </section>
-
-                    <section>
-                        <h2>Editor Linting (Atom)</h2>
-
-                        <img src="./img/atomRuleErrorHover.png">
-                        <img src="./img/atomRuleErrorList.png">
-                    </section>
-                    <section>
-                        <h2>Build Linting (test and pre-push)</h2>
-                        <ul>
-                            <li>Free test integration with ember-cli-eslint</li>
-                            <li>pre-push git hook</li>
-                        </ul>
-                    </section>
-                    <section>
-                        <h2>Build Linting (pre-push)</h2>
-                        <ul>
-                            <li>Run you linter (and tests) before any push</li>
-                            <li>Keep your baseline consistent (Esp in teams)</li>
-                            <li>npm package writes a local hook on install</li>
-                            <li>pre-push, prepush, prepush-hook</li>
-                        </ul>
-                    </section>
-                    <section>
-                        <h2>Build Linting (pre-push)</h2>
-                        <pre class="stretch"><code data-trim>
-                            {
-                              // ...
-                              "scripts": {
-                                "pretest": "npm run lint",
-                                "test": "echo \"Error: no test specified\" && exit 1",
-                                "lint": "eslint *.js",
-                                "lint-pretty": "eslint --format table *.js"
-                              },
-                              "prepush": [
-                                "test"
-                              ],
-                              // ...
-                            }
-                        </code></pre>
-                    </section>
+                        };
+                    </code></pre>
                 </section>
                 <section>
-                    <section>
-						<h1>Not just for JS!</h1>
+                    <h2>Running ESLint</h2>
+                    <pre style="width: 100%;"><code data-trim>
+                        // welcome-to-eslint.js
+                        var foo = bar;
+                    </code></pre>
 
-                        <!-- <img src="http://i.giphy.com/SqmkZ5IdwzTP2.gif"
+                    <pre class="fragment" style="width: 100%;"><code data-trim>
+                        [.../LintingMFAO/examples]$ eslint welcome-to-eslint.js
+                    </code></pre>
+
+                    <pre class="fragment" style="width: 100%;"><code data-trim>
+                        .../LintingMFAO/examples/welcome-to-eslint.js
+                          1:5   error  'foo' is assigned a value but never used  no-unused-vars
+                          1:11  error  'bar' is not defined                      no-undef
+
+                        ✖ 2 problems (2 errors, 0 warnings)
+                    </code></pre>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h1>Configuring ESLint</h1>
+
+                    <img src="http://i.giphy.com/3o6ZtbPOnNTqoPupCE.gif" alt="Fingers sliding a toggle switch back and forth" width="500" height="281">
+                </section>
+                <section>
+                    <h2>Config Hierarchy</h2>
+                    <ol>
+                        <li class="fragment">Inline (In-Code) Config</li>
+                        <li class="fragment">Command Line Options</li>
+                        <li class="fragment">Config Files</li>
+                        <li class="fragment">Parent Directories Config
+                            <ul class="fragment">
+                                <li>Opt out <pre><code>root: true</code></pre></li>
+                            </ul>
+                        </li>
+                        <li class="fragment">~/.eslintrc.js
+                            <ul class="fragment">
+                                <li>(If no other config is found)</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </section>
+                <section>
+                    <p>
+                        Hierarchy makes it simple to support
+                    </p>
+                    <ul>
+                        <li class="fragment">Isomorphic Javascript Projects</li>
+                        <li class="fragment">Different styles within a repo
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Project Flexbility</h2>
+
+                    <ul class="directory-structure fragment">
+                        <li>your-app/
+                            <ul class="fragment">
+                                <li>.eslintrc.js (Base Setup/Plugins)</li>
+                                <li class="fragment">app/
+                                    <ul>
+                                        <li>.eslintrc.js (Browser env/Strict rules)</li>
+                                    </ul>
+                                </li>
+                                <li class="fragment">server/
+                                    <ul>
+                                        <li>.eslintrc.js (node env/CommonJS)</li>
+                                    </ul>
+                                </li>
+                                <li class="fragment">tests/
+                                    <ul>
+                                        <li>.eslintrc.js (lenient/globals)</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h1>ESLint Rules</h1>
+
+                    <img src="http://i.giphy.com/l41YvrPpvl6OzMklG.gif" alt="Mechanic slides out from under car on creeper" width="396" height="225">
+                </section>
+                <section>
+                    <p>Code is linted by a set of configurable rules</p>
+                </section>
+                <section>
+                    <pre class="stretch"><code data-trim>
+                        module.exports = {
+                            // ...
+                            "rules": {
+                                "indent": [    // Rule Name
+                                    "error",   // Warning Type: off (0), warn (1), error (2)
+                                    4          // Options
+                                ],
+                                "new-cap": ["error", {  // Object Options
+                                    "capIsNew": false
+                                }],
+                                "quotes": ["error",
+                                    "single ", {        // Multiple Option Params
+                                    "allowTemplateLiterals": true
+                                }],
+                            }
+                        };
+                    </code></pre>
+                </section>
+                <section>
+                    <ul>
+                        <li>Rules are well documented (eslint.org)</li>
+                        <li class="fragment">
+                            All rules are similarly configured
+                            <br> (I'm looking at you jshint!)
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Rules are defined</h2>
+                    <ul>
+                        <li>ESLint core</li>
+                        <li>In-repo custom rules</li>
+                        <li>Plugins (npm packages)</li>
+                    </ul>
+                </section>
+                <section>
+                    <h1>Plugins?</h1>
+                    <h2 class="fragment">Tell me more</h2>
+                </section>
+                <section>
+                    <pre class="stretch"><code data-trim>
+                        module.exports = {
+                            // env, etc
+                            extends: [
+                                'eslint:recommended',
+                                'plugin:ember-suave/recommended'
+                            ],
+                            rules: {
+                                // project-specific settings
+                                // plugin-overrides!
+                            }
+                        };
+                    </code></pre>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h1>ESLint in Ember</h1>
+                    <img src="http://www.gravatar.com/avatar/0cf15665a9146ba852bf042b0652780a?s=200"></img>
+                </section>
+                <section>
+                    <ul>
+                        <li>
+                            <a href="https://github.com/ember-cli/broccoli-lint-eslint">
+                                broccoli-lint-eslint
+                            </a>
+                            <ul class="fragment">
+                                <li>Add eslint support to broccoli build</li>
+                            </ul>
+                        </li>
+                        <li class="fragment">
+                            <a href="https://github.com/ember-cli/ember-cli-eslint">
+                                ember-cli-eslint
+                            </a>
+                            <ul class="fragment">
+                                <li>Sets up your app (blueprints)</li>
+                                <li>Integrates with test infrastructure</li>
+                            </ul>
+                        </li>
+                        <li class="fragment">
+                            <a href="https://github.com/DockYard/eslint-plugin-ember-suave">
+                                eslint-plugin-ember-suave
+                            </a>
+                            <ul class="fragment">
+                                <li>Adds the suave</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>eslint-plugin-ember-suave</h2>
+                    <img class="fragment" src="http://i.giphy.com/105sHJbsNQZEzK.gif"></img>
+                </section>
+                <section>
+                    <h2>eslint-plugin-ember-suave</h2>
+                    <ul>
+                        <li class="fragment">Ember-specific, community styling by Dockyard</li>
+                        <li class="fragment">Custom Rules</li>
+                        <li class="fragment">Great ESLint rule base</li>
+                        <li class="fragment">You'll have to tweak a few things</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Installation</h2>
+                    <pre><code data-trim>
+                        # Install suave ESLint plugin
+                        npm install --save-dev eslint-plugin-ember-suave
+
+                        # Install ESLint for Ember
+                        ember install ember-cli-eslint
+                    </code></pre>
+                </section>
+            </section>
+            <section>
+                <section id="hat-trick-title">
+                    <h1>Linting Hat Trick</h1>
+                    <figure>
+                        <img src="http://www.gannett-cdn.com/-mm-/283a677b5cfa7796ee2c922210c97549f88dbdd8/c=386-0-4304-2946&r=x404&c=534x401/local/-/media/2017/01/31/USATODAY/USATODAY/636214986703219322-USATSI-9851013.jpg" width="400px">
+                        <figcaption>(Photo: James Guillory, USA TODAY Sports)</figcaption>
+                    </figure>
+                </section>
+                <section>
+                    <h2>Same linting results</h2>
+                    <ul>
+                        <li>Command Line</li>
+                        <li>Editor</li>
+                        <li>Build (test and pre-push)</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Command Line Linting (Manual)</h2>
+                    <pre class="stretch"><code data-trim>
+                        [~/code/personal/talks/LintingMFAO/examples]$ eslint index.js                                                                                                          *[master]
+
+                        /Users/jray/code/personal/talks/LintingMFAO/examples/index.js
+                          1:5   error  'foo' is assigned a value but never used  no-unused-vars
+                          1:11  error  'bar' is not defined                      no-undef
+
+                        ✖ 2 problems (2 errors, 0 warnings)
+                    </code></pre>
+                </section>
+                <section>
+                    <h2>Command Line Linting (npm-scripts)</h2>
+                    <pre class="stretch"><code data-trim>
+                        {
+                          "name": "lmfao-examples",
+                          // ...
+                          "main": "index.js",
+                          "scripts": {
+                            "pretest": "npm run lint",
+                            "test": "echo \"Error: no test specified\" && exit 1",
+                            "lint": "eslint *.js",
+                            "lint-pretty": "eslint --format table *.js"
+                          },
+                          // ...
+                        }
+                    </code></pre>
+                </section>
+                <section>
+                    <h2>Command Line Linting (npm-scripts)</h2>
+                    <pre class="stretch"><code data-trim>
+                        [~/code/personal/talks/LintingMFAO/examples]$ npm run lint-pretty                                                                                                      *[master]
+
+                        > lmfao-examples@0.0.1 lint-pretty /Users/jray/code/personal/talks/LintingMFAO/examples
+                        > eslint --format table *.js
+
+
+                        /Users/jray/code/personal/talks/LintingMFAO/examples/index.js
+
+                        ║ Line     │ Column   │ Type     │ Message                                                │ Rule ID              ║
+                        ╟──────────┼──────────┼──────────┼────────────────────────────────────────────────────────┼──────────────────────╢
+                        ║ 1        │ 5        │ error    │ 'foo' is assigned a value but never used.              │ no-unused-vars       ║
+                        ║ 1        │ 11       │ error    │ 'bar' is not defined.                                  │ no-undef             ║
+
+                        ╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+                        ║ 2 Errors                                                                                                       ║
+                        ╟────────────────────────────────────────────────────────────────────────────────────────────────────────────────╢
+                        ║ 0 Warnings                                                                                                     ║
+                        ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+                    </code></pre>
+                </section>
+                <section>
+                    <h2>Editor Linting</h2>
+
+                    <a href="http://eslint.org/docs/user-guide/integrations#editors">
+                        http://eslint.org/docs/user-guide/integrations#editors
+                    </a>
+
+                    <img src="./img/esLintEditorIntegrations.png" alt="Screenshot of ESLint editor integrations list">
+                </section>
+
+                <section>
+                    <h2>Editor Linting (Atom)</h2>
+
+                    <img src="./img/atomRuleErrorHover.png">
+                    <img src="./img/atomRuleErrorList.png">
+                </section>
+                <section>
+                    <h2>Build Linting (test and pre-push)</h2>
+                    <ul>
+                        <li>Free test integration with ember-cli-eslint</li>
+                        <li>pre-push git hook</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Build Linting (pre-push)</h2>
+                    <ul>
+                        <li>Run you linter (and tests) before any push</li>
+                        <li>Keep your baseline consistent (Esp in teams)</li>
+                        <li>npm package writes a local hook on install</li>
+                        <li>pre-push, prepush, prepush-hook</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Build Linting (pre-push)</h2>
+                    <pre class="stretch"><code data-trim>
+                        {
+                          // ...
+                          "scripts": {
+                            "pretest": "npm run lint",
+                            "test": "echo \"Error: no test specified\" && exit 1",
+                            "lint": "eslint *.js",
+                            "lint-pretty": "eslint --format table *.js"
+                          },
+                          "prepush": [
+                            "test"
+                          ],
+                          // ...
+                        }
+                    </code></pre>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h1>Not just for JS!</h1>
+
+                    <!-- <img src="http://i.giphy.com/SqmkZ5IdwzTP2.gif"
                             alt="Minion saying 'What?!!'"
                             width="269" height="221"
                             class="fragment"> -->
 
-                        <img src="http://i.giphy.com/6JB4v4xPTAQFi.gif"
-                            alt="Ron Burgandy saying 'I don\'t believe you'"
-                            width="242" height="200"
-                            class="fragment">
-                    </section>
-                    <section>
-                        <ul>
-                            <li>JSX (ESLint Native Support)</li>
-                            <li class="fragment">
-                                <a href="https://github.com/BenoitZugmeyer/eslint-plugin-html">
-                                    github.com/BenoitZugmeyer/eslint-plugin-html
-                                </a>
-                            </li>
-                            <li class="fragment">
-                                <a href="https://github.com/rwjblue/ember-template-lint">
-                                    github.com/rwjblue/ember-template-lint
-                                </a>
-                            </li>
-                            <li class="fragment">
-                                <a href="https://github.com/salsify/ember-cli-dependency-lint">
-                                    github.com/salsify/ember-cli-dependency-lint
-                                </a>
-                            </li>
-                        </ul>
-					</section>
-                    <section>
-                        <h2>Installing ember-cli-template-lint</h2>
-
-                        <pre><code data-trim>
-                            ember install ember-cli-template-lint
-                        </code></pre>
-					</section>
-                    <section>
-						<ul class="nested">
-							<li>
-                                Syntax/Formatting
-                                <ul>
-                                    <li>Indentation</li>
-                                    <li>Mis-matched quotes</li>
-                                </ul>
-                            </li>
-							<li class="fragment">
-                                Better templates
-                                <ul>
-                                    <li>Require Handlebars comments</li>
-                                    <li>Require alt attributes</li>
-                                    <li>No hard-coded strings (i18n)</li>
-                                    <li>invalid-interactive</li>
-                                </ul>
-                            </li>
-                            <li class="fragment">
-                                Security
-                                <ul>
-                                    <li>triple-curlies</li>
-                                    <li>rel noopener</li>
-                                    <li>style-concatenation</li>
-                                </ul>
-                            </li>
-						</ul>
-					</section>
+                    <img src="http://i.giphy.com/6JB4v4xPTAQFi.gif" alt="Ron Burgandy saying 'I don\'t believe you'" width="242" height="200" class="fragment">
                 </section>
-                <section class="outro-slide">
-                    <figure>
-                        <img src="http://i.giphy.com/VCQb9YcUgU2E8.gif"
-                            alt="Outro sceen of LMFAO's video, Sexy and I Know It"
-                            width="400px" height="225">
-                        <figcaption>
-                            (Now, Your Code is Sexy and You Know It)
-                        </figcaption>
-                    </figure>
-
-                    <footer>
-                        <div class="author">
-                            Justin Ray
-                            <br>
-                            @thejustinaray
-                        </div>
-                    </footer>
+                <section>
+                    <ul>
+                        <li>JSX (ESLint Native Support)</li>
+                        <li class="fragment">
+                            <a href="https://github.com/BenoitZugmeyer/eslint-plugin-html">
+                                github.com/BenoitZugmeyer/eslint-plugin-html
+                            </a>
+                        </li>
+                        <li class="fragment">
+                            <a href="https://github.com/rwjblue/ember-template-lint">
+                                github.com/rwjblue/ember-template-lint
+                            </a>
+                        </li>
+                        <li class="fragment">
+                            <a href="https://github.com/salsify/ember-cli-dependency-lint">
+                                github.com/salsify/ember-cli-dependency-lint
+                            </a>
+                        </li>
+                    </ul>
                 </section>
-			</div>
-		</div>
+                <section>
+                    <h2>Installing ember-cli-template-lint</h2>
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.js"></script>
+                    <pre><code data-trim>
+                        ember install ember-cli-template-lint
+                    </code></pre>
+                </section>
+                <section>
+                    <ul class="nested">
+                        <li>
+                            Syntax/Formatting
+                            <ul>
+                                <li>Indentation</li>
+                                <li>Mis-matched quotes</li>
+                            </ul>
+                        </li>
+                        <li class="fragment">
+                            Better templates
+                            <ul>
+                                <li>Require Handlebars comments</li>
+                                <li>Require alt attributes</li>
+                                <li>No hard-coded strings (i18n)</li>
+                                <li>invalid-interactive</li>
+                            </ul>
+                        </li>
+                        <li class="fragment">
+                            Security
+                            <ul>
+                                <li>triple-curlies</li>
+                                <li>rel noopener</li>
+                                <li>style-concatenation</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+            </section>
+            <section class="outro-slide">
+                <figure>
+                    <img src="http://i.giphy.com/VCQb9YcUgU2E8.gif" alt="Outro sceen of LMFAO's video, Sexy and I Know It" width="400px" height="225">
+                    <figcaption>
+                        (Now, Your Code is Sexy and You Know It)
+                    </figcaption>
+                </figure>
 
-		<script>
-			// More info https://github.com/hakimel/reveal.js#configuration
-			Reveal.initialize({
-				history: true,
+                <footer>
+                    <div class="author">
+                        Justin Ray
+                        <br> @thejustinaray
+                    </div>
+                </footer>
+            </section>
+        </div>
+    </div>
 
-				// More info https://github.com/hakimel/reveal.js#dependencies
-				dependencies: [
-					{ src: 'plugin/markdown/marked.js' },
-					{ src: 'plugin/markdown/markdown.js' },
-					{ src: 'plugin/notes/notes.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
-				]
-			});
-		</script>
-	</body>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+
+    <script>
+        // More info https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            history: true,
+
+            // More info https://github.com/hakimel/reveal.js#dependencies
+            dependencies: [{
+                    src: 'plugin/markdown/marked.js'
+                },
+                {
+                    src: 'plugin/markdown/markdown.js'
+                },
+                {
+                    src: 'plugin/notes/notes.js',
+                    async: true
+                },
+                {
+                    src: 'plugin/highlight/highlight.js',
+                    async: true,
+                    callback: function() {
+                        hljs.initHighlightingOnLoad();
+                    }
+                }
+            ]
+        });
+    </script>
+</body>
+
 </html>
