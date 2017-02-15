@@ -489,13 +489,56 @@
                 </section>
                 <section>
                     <h2>Installation</h2>
-                    <pre><code data-trim>
+                    <pre class="stretch"><code data-trim>
                         # Install suave ESLint plugin
                         npm install --save-dev eslint-plugin-ember-suave
 
                         # Install ESLint for Ember
                         ember install ember-cli-eslint
+
+                        # Add plugin to .eslintrc.js
+                        module.exports = {
+                            // env, etc
+                            extends: [
+                                'eslint:recommended',
+                                'plugin:ember-suave/recommended'
+                            ],
+                            rules: {
+                                // project-specific settings
+                                // suave-overrides!
+                            }
+                        };
                     </code></pre>
+                </section>
+                <section>
+                    <pre class="stretch"><code data-trim>
+                        [.../LintingMFAO/ember-examples]$ ember t
+
+                        .../LintingMFAO/ember-examples/app/app.js
+                          10:7  error  Avoid accessing Ember.Application directly  ember-suave/no-direct-property-access
+
+                        ✖ 1 problem (1 error, 0 warnings)
+
+
+                        .../LintingMFAO/ember-examples/app/components/bad-component.js
+                          3:16  error  Avoid accessing Ember.Component directly     ember-suave/no-direct-property-access
+                          4:3   error  Expected method shorthand                    object-shorthand
+                          6:5   error  Unexpected var, use let or const instead     no-var
+                          6:24  error  Unexpected string concatenation of literals  no-useless-concat
+                          6:44  error  Missing semicolon                            semi
+                          7:5   error  Unexpected console statement                 no-console
+                          7:21  error  Missing semicolon                            semi
+
+                        ✖ 7 problems (7 errors, 0 warnings)
+
+                        ....
+                    </code></pre>
+                </section>
+                <section>
+                    <h2>ember t --serve</h2>
+                    <img src="./img/emberTestServerLintingErrors.png"
+                        width="965" height="504"
+                        alt="A screenshot of ember-suave linting errors in the Ember Test Server">
                 </section>
             </section>
             <section>
