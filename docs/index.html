@@ -65,12 +65,10 @@
                             Code
                             <ul>
                                 <li>
-                                    <a href="https://github.com/justinaray/LintingMFAO">
-                                        https://github.com/justinaray/LintingMFAO
+                                    <a href="https://github.com/justinaray/LintingMFAO-examples">
+                                        https://github.com/justinaray/LintingMFAO-examples
                                     </a>
                                 </li>
-                                <li>examples</li>
-                                <li>ember-examples</li>
                             </ul>
                         </li>
                 </section>
@@ -154,7 +152,7 @@
                         }
                     </code></pre>
                     <pre class="fragment"><code data-trim>
-                        [.../LintingMFAO/examples]$ node one-equals-two.js
+                        [.../LintingMFAO-examples]$ node one-equals-two.js
                         This should never print!
                     </code></pre>
                 </section>
@@ -178,7 +176,7 @@
                         }
                     </code></pre>
                     <pre class="fragment"><code data-trim>
-                        [.../LintingMFAO/examples]$ node printOne.js
+                        [.../LintingMFAO-examples]$ node printOne.js
                         printOne: 3
                     </code></pre>
                 </section>
@@ -244,7 +242,7 @@
                 </section>
                 <section>
                     <pre class="stretch"><code data-trim>
-                        [~/code/personal/talks/LintingMFAO/examples]$ node_modules/.bin/eslint --init
+                        [.../LintingMFAO-examples]$ node_modules/.bin/eslint --init
 
                         ? How would you like to configure ESLint?
                         ❯ Answer questions about your style
@@ -319,11 +317,11 @@
                     </code></pre>
 
                     <pre class="fragment" style="width: 100%;"><code data-trim>
-                        [.../examples]$ node_modules/.bin/eslint welcome-to-eslint.js
+                        [.../LintingMFAO-examples]$ node_modules/.bin/eslint welcome-to-eslint.js
                     </code></pre>
 
                     <pre class="fragment" style="width: 100%;"><code data-trim>
-                        .../LintingMFAO/examples/welcome-to-eslint.js
+                        .../LintingMFAO-examples/welcome-to-eslint.js
                           1:5   error  'foo' is assigned a value but never used  no-unused-vars
                           1:11  error  'bar' is not defined                      no-undef
 
@@ -451,9 +449,9 @@
                 <section>
                     <h2>Command Line Linting</h2>
                     <pre class="stretch"><code data-trim>
-                        [~/code/personal/talks/LintingMFAO/examples]$ eslint index.js                                                                                                          *[master]
+                        [.../LintingMFAO-examples]$ node_modules/.bin/eslint index.js                                                                                                          *[master]
 
-                        /Users/jray/code/personal/talks/LintingMFAO/examples/index.js
+                        .../LintingMFAO-examples/index.js
                           1:5   error  'foo' is assigned a value but never used  no-unused-vars
                           1:11  error  'bar' is not defined                      no-undef
 
@@ -524,13 +522,11 @@
                           // ...
                           "scripts": {
                             "pretest": "npm run lint",
-                            "test": "echo \"Error: no test specified\" && exit 1",
+                            "test": "echo \"Unit tests go here\"",
                             "lint": "eslint *.js",
                             "lint-pretty": "eslint --format table *.js"
                           },
-                          "prepush": [
-                            "test"
-                          ],
+                          "pre-push": ["test"],
                           // ...
                         }
                     </code></pre>
@@ -720,9 +716,9 @@
                 </section>
                 <section>
                     <pre class="stretch"><code data-trim>
-                        [.../LintingMFAO/examples]$ eslint welcome-to-eslint.js
+                        [.../LintingMFAO-examples]$ node_modules/.bin/eslint welcome-to-eslint.js
 
-                        .../LintingMFAO/examples/welcome-to-eslint.js
+                        .../LintingMFAO-examples/welcome-to-eslint.js
                           5:5   error  'foo' is assigned a value but never used      no-unused-vars
                           5:11  error  'bar' is not defined                          no-undef
                           7:10  error  'soMuchLint' is defined but never used        no-unused-vars
@@ -734,7 +730,7 @@
 
                         ✖ 8 problems (8 errors, 0 warnings)
 
-                        [.../LintingMFAO/examples]$ tail -3 welcome-to-eslint.js
+                        [.../LintingMFAO-examples]$ tail -3 welcome-to-eslint.js
                         function soMuchLint(choice) {
                           return choice?"tabs":"spaces"
                         }
@@ -742,16 +738,16 @@
                 </section>
                 <section>
                     <pre class="stretch"><code data-trim>
-                        [.../LintingMFAO/examples]$ eslint --fix welcome-to-eslint.js
+                        [.../LintingMFAO-examples]$ node_modules/.bin/eslint --fix welcome-to-eslint.js
 
-                        .../LintingMFAO/examples/welcome-to-eslint.js
+                        .../LintingMFAO-examples/welcome-to-eslint.js
                           5:5   error  'foo' is assigned a value but never used  no-unused-vars
                           5:11  error  'bar' is not defined                      no-undef
                           7:10  error  'soMuchLint' is defined but never used    no-unused-vars
 
                         ✖ 3 problems (3 errors, 0 warnings)
 
-                        [.../LintingMFAO/examples]$ tail -3 welcome-to-eslint.js
+                        [.../LintingMFAO-examples]$ tail -3 welcome-to-eslint.js
                         function soMuchLint(choice) {
                             return choice ? 'tabs' : 'spaces';
                         }
@@ -766,7 +762,7 @@
                 </section>
                 <section>
                     <pre class="stretch"><code data-trim>
-                        [../LintingMFAO/examples]$ node_modules/.bin/eslint-nibble *.js
+                        [../LintingMFAO-examples]$ node_modules/.bin/eslint-nibble *.js
                         no-constant-condition: 1|
                         no-cond-assign:        1|
                         no-unsafe-finally:     1|
@@ -779,7 +775,7 @@
                         ? Type in the rule you want to focus on no-undef
 
                           ✘  http://eslint.org/docs/rules/no-undef  'bar' is not defined
-                          /Users/jray/code/personal/talks/LintingMFAO/examples/welcome-to-eslint.js:4:11
+                          .../LintingMFAO-examples/welcome-to-eslint.js:4:11
                           var foo = bar;
                                      ^
 
@@ -819,13 +815,13 @@
                 <section>
                     <h2>npm-scripts - ESLint format output</h2>
                     <pre class="stretch"><code data-trim>
-                        [~/code/personal/talks/LintingMFAO/examples]$ npm run lint-pretty                                                                                                      *[master]
+                        [.../LintingMFAO-examples]$ npm run lint-pretty                                                                                                      *[master]
 
-                        > lmfao-examples@0.0.1 lint-pretty /Users/jray/code/personal/talks/LintingMFAO/examples
+                        > lmfao-examples@0.0.1 lint-pretty .../LintingMFAO-examples
                         > eslint --format table *.js
 
 
-                        /Users/jray/code/personal/talks/LintingMFAO/examples/index.js
+                        .../LintingMFAO-examples/index.js
 
                         ║ Line     │ Column   │ Type     │ Message                                                │ Rule ID              ║
                         ╟──────────┼──────────┼──────────┼────────────────────────────────────────────────────────┼──────────────────────╢
