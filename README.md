@@ -1,9 +1,15 @@
 # LintingMFAO
 > Sexy Code and I Know It
 
-by Justin Ray
+by Justin Ray ([@thejustinaray](https://www.twitter.com/thejustinaray))
+
+[https://justinaray.github.io/LintingMFAO](https://justinaray.github.io/LintingMFAO)
 
 # Presentation History
+
+Modern Web (Triangle) - 4/18/2017
+
+In this talk, we’ll discuss the basics of linting and dig into the latest linter, eslint.  I’ll cover setup, configuration, and some of the tooling ecosystem including cli and auto-fix.  Finally, we’ll bring it home with how eslint can be integrated into your project to achieve the "Linting Hat Trick".
 
 Triangle Ember - 2/15/2017
 

@@ -6,7 +6,8 @@
 /* Disabling irrelevant lint warnings for this example */
 /* eslint-disable no-unused-vars, no-console*/
 let one = 1;
-if (one = 2) {
+let two = 2;
+if (one = two) {
     console.log('This should never print!');
     // Well, it does!
 } else {
