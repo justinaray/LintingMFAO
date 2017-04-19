@@ -3,7 +3,15 @@
 
 by Justin Ray ([@thejustinaray](https://www.twitter.com/thejustinaray))
 
-[https://justinaray.github.io/LintingMFAO](https://justinaray.github.io/LintingMFAO)
+# Links
+
+Hosted Presentation:
+
+https://justinaray.github.io/LintingMFAO
+
+Code Examples:
+
+https://github.com/justinaray/LintingMFAO-examples
 
 # Presentation History
 
